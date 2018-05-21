@@ -3,7 +3,7 @@ pipeline {
     docker {
       image 'maven:3-alpine'
     }
-    
+
   }
   stages {
     stage('Build') {
@@ -13,9 +13,9 @@ pipeline {
       post {
         success {
           archiveArtifacts 'target/*.hpi,target/*.jpi'
-          
+
         }
-        
+
       }
     }
     stage('Test') {
@@ -25,10 +25,13 @@ pipeline {
       post {
         always {
           junit '**/surefire-reports/**/*.xml'
-          
+
         }
-        
+
       }
     }
+  }
+  environment {
+    TEST = 'yes'
   }
 }
