@@ -1,30 +1,18 @@
 pipeline {
   agent {
-    docker {
-      image 'maven:3-alpine'
+    node {
+      label 'docker-slave'
     }
 
   }
   stages {
     stage('Build') {
       steps {
-        sh './tools/build.sh'
+        sh 'echo "Hello"'
       }
       post {
         success {
           archiveArtifacts 'target/*.hpi,target/*.jpi'
-
-        }
-
-      }
-    }
-    stage('Test') {
-      steps {
-        sh './tools/test.sh'
-      }
-      post {
-        always {
-          junit '**/surefire-reports/**/*.xml'
 
         }
 
